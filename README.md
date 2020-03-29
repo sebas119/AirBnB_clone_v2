@@ -52,3 +52,7 @@ Ex:
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
 Ex:
 `City.show(my_city_id)`
+
+### Authors :black_nib:
+* **Sebastián López Herrera** <[sebas119](https://github.com/sebas119)>
+* **Daniel Rodriguez** <[danrocus1994](https://github.com/danrocus1994)>
