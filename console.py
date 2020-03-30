@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This is the console for AirBnB"""
 import cmd
+import re
 from models import storage
 from datetime import datetime
 from models.base_model import BaseModel
@@ -33,7 +34,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it
+        """Creates a new instance of a Model Class, saves it
+        create <Class name> <param 1> <param 2> <param 3>...
         Exceptions:
             SyntaxError: when there is no args given
             NameError: when there is no object taht has the name
@@ -42,7 +44,33 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
+            param_dict = {}
+            # Enters here when has parameters
+            if len(my_list) > 1:
+                for i in range(1, len(my_list)):
+                    # x = re.search("(.*[^=])=(.*)", my_list[i]).groups()
+                    params = my_list[i].split("=")
+                    if len(params) == 2:
+                        value = params[1]
+                        for v in value:
+                            new = ''
+                            if v[0] == '"' and v[-1] == '"':
+                                new = value[1:-1]
+                                new = new.replace("_", " ")
+                                params[1] = new
+                                break
+                            if (v.isdigit() or v == '-') and '.' in value:
+                                params[1] = float(value)
+                                break
+                            else:
+                                params[1] = int(value)
+                                break
+                        param_dict[params[0]] = params[1]
+            if len(param_dict) == 0:
+                obj = eval(my_list[0])()
+            else:
+                obj = eval(my_list[0])(**param_dict)
+                storage.new(obj)
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
