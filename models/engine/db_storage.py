@@ -41,10 +41,10 @@ class DBStorage:
         else:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
-            objs.extend(self.__session.query(User).all())
+            """ objs.extend(self.__session.query(User).all())
             objs.extend(self.__session.query(Amenity).all())
             objs.extend(self.__session.query(Place).all())
-            objs.extend(self.__session.query(Review).all())
+            objs.extend(self.__session.query(Review).all()) """
         for obj in objs:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             data[key] = obj
