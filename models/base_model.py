@@ -14,7 +14,7 @@ class BaseModel:
 	for other classes
 	"""
 
-	id = Column(String(60), primary_key=True, nullable=False)
+	id = Column(String(60), unique=True, primary_key=True, nullable=False)
 	created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 	updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -43,7 +43,6 @@ class BaseModel:
 			self.id = str(uuid.uuid4())
 			self.created_at = dt.datetime.now()
 			self.updated_at = dt.datetime.now()
-			models.storage.new(self)
 
 	def __str__(self):
 		"""returns a string
