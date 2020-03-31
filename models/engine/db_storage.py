@@ -41,7 +41,8 @@ class DBStorage:
         else:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
-            """ objs.extend(self.__session.query(User).all())
+            """
+            objs.extend(self.__session.query(User).all())
             objs.extend(self.__session.query(Amenity).all())
             objs.extend(self.__session.query(Place).all())
             objs.extend(self.__session.query(Review).all()) """
@@ -53,14 +54,13 @@ class DBStorage:
     def new(self, obj):
         """add the object to the current database session
         """
-        if self.__session:
+        if obj:
             self.__session.add(obj)
 
     def save(self):
         """commit all changes of the current database session
         """
-        if self.__session:
-            self.__session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None
