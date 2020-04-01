@@ -37,15 +37,14 @@ class DBStorage:
         """
         data = {}
         if cls:
-            objs = self.__session.query(eval(cls.__name__)).all()
+            objs = self.__session.query(eval(cls)).all()
         else:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
-            """
             objs.extend(self.__session.query(User).all())
             objs.extend(self.__session.query(Amenity).all())
             objs.extend(self.__session.query(Place).all())
-            objs.extend(self.__session.query(Review).all()) """
+            objs.extend(self.__session.query(Review).all())
         for obj in objs:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             data[key] = obj
