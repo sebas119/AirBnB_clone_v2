@@ -31,6 +31,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """Quit command to exit the program at end of file"""
+        print()
         return True
 
     def do_create(self, line):
@@ -149,9 +150,6 @@ class HBNBCommand(cmd.Cmd):
         """
         if len(line) == 0:
             objects = storage.all()
-        else:
-            args = line.split(" ")
-            objects = storage.all(args[0])
         my_list = []
         if not line:
             for key in objects:
@@ -162,6 +160,7 @@ class HBNBCommand(cmd.Cmd):
             args = line.split(" ")
             if args[0] not in self.all_classes:
                 raise NameError()
+            objects = storage.all(eval(args[0]))
             for key in objects:
                 name = key.split('.')
                 if name[0] == args[0]:
