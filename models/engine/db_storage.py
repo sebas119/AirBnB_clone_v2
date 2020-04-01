@@ -16,6 +16,12 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 
 class DBStorage:
+    """This class save instances to a mysql db and
+    get instances from the db
+    Attributes:
+        __engine: create the interfaces of comunication with db
+        __session: open a comunication with the db
+    """
     __engine = None
     __session = None
 
@@ -53,8 +59,7 @@ class DBStorage:
     def new(self, obj):
         """add the object to the current database session
         """
-        if obj:
-            self.__session.add(obj)
+        self.__session.add(obj)
 
     def save(self):
         """commit all changes of the current database session
