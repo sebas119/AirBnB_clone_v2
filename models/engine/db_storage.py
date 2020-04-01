@@ -37,9 +37,7 @@ class DBStorage:
         """
         data = {}
         if cls:
-            print("ENTRO aqui")
-            print(cls)
-            objs = self.__session.query(cls.__name__).all()
+            objs = self.__session.query(cls).all()
         else:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
