@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """This is the place class"""
 import os
+import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
-
+from models.review import Review
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey(
@@ -70,3 +71,12 @@ class Place(BaseModel, Base):
         def amenities(self, amen):
             if amen.__class__.__name__ == 'Amenity':
                 self.amenity_ids.append(amen)
+
+        @property
+        def reviews(self):
+            reviews_list = []
+            list_all = models.storage.all(Review)
+            for review in list_all:
+                if review.place_id == self.id:
+                    reviews_list.append(review)
+            return reviews_list
