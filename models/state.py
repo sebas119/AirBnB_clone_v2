@@ -21,6 +21,7 @@ class State(BaseModel, Base):
     elif os.getenv('HBNB_TYPE_STORAGE') == 'file':
         @property
         def cities(self):
+            """Get cities by state"""
             cities_list = []
             for city_id, city in models.storage.all(City).items():
                 if self.id == city.state_id:

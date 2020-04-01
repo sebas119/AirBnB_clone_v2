@@ -28,30 +28,34 @@ class BaseModel:
                 created_at: creation date
                 updated_at: updated date
         """
-        if (len(kwargs) != 0):
-            self.id = kwargs["id"]
-            self.created_at = datetime.strptime(kwargs["created_at"],
-                                                "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(kwargs["updated_at"],
-                                                "%Y-%m-%dT%H:%M:%S.%f")
-            dic = self.__dict__
-            for key in kwargs:
-                if key != '__class__':
-                    if key not in dic:
-                        dic[key] = kwargs[key]
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                if key != "__class__" and hasattr(self, key):
+                    setattr(self, key, value)
+            if self.id is None:
+                setattr(self, 'id', str(uuid.uuid4()))
+            time = datetime.utcnow()
+            if self.created_at is None:
+                self.created_at = time
+            if self.updated_at is None:
+                self.updated_at = time
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.created_at = self.updated_at = datetime.utcnow()
 
     def __str__(self):
         """returns a string
         Return:
                 returns a string of class name, id, and dictionary
         """
+        my_dict = self.__dict__.copy()
+        if "_sa_instance_state" in my_dict:
+            del(my_dict["_sa_instance_state"])
         return "[{}] ({}) {}".format(self.__class__.__name__,
                                      str(self.id),
-                                     self.to_dict())
+                                     my_dict)
 
     def __repr__(self):
         """return a string representaion

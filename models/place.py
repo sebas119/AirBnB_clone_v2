@@ -1,19 +1,20 @@
 #!/usr/bin/python3
 """This is the place class"""
+from models.review import Review
 import os
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
-from models.amenity import Amenity
-from models.review import Review
+""" from models.amenity import Amenity """
 
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60), ForeignKey(
-                          'places.id'), primary_key=True, nullable=False),
-                      Column('amenity_id', String(60), ForeignKey(
-                          'places.id'), primary_key=True, nullable=False)
-                      )
+place_amenity = Table(
+    'place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey(
+        'places.id'), primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey(
+        'amenities.id'), primary_key=True, nullable=False)
+)
 
 
 class Place(BaseModel, Base):
@@ -52,6 +53,8 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
+            """Return list of reviews by an specific place
+            """
             revs = []
             for rev in self.reviews:
                 if rev.place_id == self.id:
@@ -61,6 +64,8 @@ class Place(BaseModel, Base):
     elif os.getenv('HBNB_TYPE_STORAGE') == 'file':
         @property
         def amenities(self):
+            """Return list of amenities by an specific place
+            """
             amenities_list = []
             for amen in amenity_ids:
                 if amen.id == self.id:
@@ -69,11 +74,14 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, amen):
+            """Set amenities"""
             if amen.__class__.__name__ == 'Amenity':
                 self.amenity_ids.append(amen)
 
         @property
         def reviews(self):
+            """Return a list of reviews by an specific place
+            """
             reviews_list = []
             list_all = models.storage.all(Review)
             for review in list_all:
