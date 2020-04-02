@@ -117,7 +117,6 @@ Ex:
 * Place
 * Review
 
-## Classes included
 ### User
 
 * email: string 
