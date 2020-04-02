@@ -18,6 +18,25 @@ $ ./console.py
 ```
 This tool have the following methods
 
+
+### help
+ usage:
+ 
+```
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+```
+
+you can get specific information of one method
+
+```
+(hbnb) help create
+Usage: create <class_name>
+```
+
 ### Supported classes:
 * BaseModel
 * User
