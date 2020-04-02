@@ -71,10 +71,18 @@ Ex:
 Ex:
 `destroy Place my_place_id`
 
-#### All
-`all` or `all <class name>`
-Ex:
-`all` or `all State`
+### all
+ usage:
+```
+(hbtn) all
+["[User] (98b9072f-ce8d-4856-b7a7-2004f91815d4) {'created_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505440), 'updated_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505466), 'id': '98b9072f-ce8d-4856-b7a7-2004f91815d4'}", "[BaseModel] (76e5ff68-6fd8-4e4b-9111-eb8dbb9eb2bb) {'created_at': datetime.datetime(2020, 2, 19, 22, 23, 55, 671400), 'updated_at': datetime.datetime(2020, 2, 19, 22, 23, 55, 671482), 'id': '76e5ff68-6fd8-4e4b-9111-eb8dbb9eb2bb'}"]
+```
+you can also specify the class objects you want to retrieve
+
+```
+(hbtn) all User
+["[User] (98b9072f-ce8d-4856-b7a7-2004f91815d4) {'created_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505440), 'updated_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505466), 'id': '98b9072f-ce8d-4856-b7a7-2004f91815d4'}"]
+```
 
 #### Quit
 `quit` or `EOF`
