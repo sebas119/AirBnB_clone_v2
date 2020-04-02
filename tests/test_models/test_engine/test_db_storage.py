@@ -20,14 +20,14 @@ class TestDBStorage(unittest.TestCase):
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db',
                      "Do test this only if storage is db")
-    @classmethod
-    def setUpClass(cls):
+    def setUp(cls):
         """set up for test"""
-        self.db = MySQLdb.connect(os.getenv("HBNB_MYSQL_HOST"),
-                                  os.getenv("HBNB_MYSQL_USER"),
-                                  os.getenv("HBNB_MYSQL_PWD"),
-                                  os.getenv("HBNB_MYSQL_DB"))
-        self.cursor = self.db.cursor()
+        if os.getenv("HBNB_TYPE_STORAGE") == 'db':
+            self.db = MySQLdb.connect(os.getenv("HBNB_MYSQL_HOST"),
+                                      os.getenv("HBNB_MYSQL_USER"),
+                                      os.getenv("HBNB_MYSQL_PWD"),
+                                      os.getenv("HBNB_MYSQL_DB"))
+            self.cursor = self.db.cursor()
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db',
                      "Do test this only if storage is db")
