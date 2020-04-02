@@ -1,6 +1,12 @@
-# HBNB
+# Airbnb clone project
 
-This is the console /command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON.
+## Definition
+
+It's a simple system to preserve, read and modify models that represents entities for the airbnb services.
+
+This behavior is achieved by the console program, this program is capable of reading a .json file , deserialize it and create instaces for python objects, also it's capable of modify existimg objects create new ones and store them again in tje .json file.
+
+This module is just a little piece for the airbnb clone full implementation, will change it's scope in the future.
 
 ### Supported classes:
 * BaseModel
