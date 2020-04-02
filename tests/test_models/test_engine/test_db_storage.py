@@ -20,7 +20,7 @@ class TestDBStorage(unittest.TestCase):
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db',
                      "Do test this only if storage is db")
-    def setUp(cls):
+    def setUp(self):
         """set up for test"""
         if os.getenv("HBNB_TYPE_STORAGE") == 'db':
             self.db = MySQLdb.connect(os.getenv("HBNB_MYSQL_HOST"),
