@@ -8,6 +8,16 @@ This behavior is achieved by the console program, this program is capable of rea
 
 This module is just a little piece for the airbnb clone full implementation, will change it's scope in the future.
 
+## The console
+
+To run this tool you type
+
+```
+$ ./console.py
+(hbtn)
+```
+This tool have the following methods
+
 ### Supported classes:
 * BaseModel
 * User
@@ -58,6 +68,15 @@ Ex:
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
 Ex:
 `City.show(my_city_id)`
+
+### Supported classes:
+* BaseModel
+* User
+* State
+* City
+* Amenity
+* Place
+* Review
 
 ### Authors :black_nib:
 * **Sebastián López Herrera** <[sebas119](https://github.com/sebas119)>
