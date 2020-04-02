@@ -31,7 +31,7 @@ class TestDBStorage(unittest.TestCase):
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db',
                      "Do test this only if storage is db")
-    def teardown(cls):
+    def tearDown(self):
         """at the end of the test this will tear it down"""
         if os.getenv("HBNB_TYPE_STORAGE") == 'db':
             self.db.close()
