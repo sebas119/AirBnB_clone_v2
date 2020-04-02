@@ -4,6 +4,7 @@ import unittest
 import pep8
 import json
 import os
+import MySQLdb
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -14,83 +15,43 @@ from models.review import Review
 from models.engine.db_storage import DBStorage
 
 
-class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+class TestDBStorage(unittest.TestCase):
+	'''this will test the FileStorage'''
 
-    @classmethod
-    def setUpClass(cls):
-        """set up for test"""
-        cls.user = User()
-        cls.user.first_name = "Kev"
-        cls.user.last_name = "Yo"
-        cls.user.email = "1234@yahoo.com"
-        cls.storage = FileStorage()
+	@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db', "Do test this only if storage is db")
+	@classmethod
+	def setUpClass(cls):
+		"""set up for test"""
+		self.db = MySQLdb.connect(os.getenv("HBNB_MYSQL_HOST"),
+									os.getenv("HBNB_MYSQL_USER"),
+									os.getenv("HBNB_MYSQL_PWD"),
+									os.getenv("HBNB_MYSQL_DB"))
+		self.cursor = self.db.cursor()
 
-    @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
-        del cls.user
+	@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db', "Do test this only if storage is db")
+	def teardown(cls):
+		"""at the end of the test this will tear it down"""
+		if os.getenv("HBNB_TYPE_STORAGE") == 'db':
+			self.db.close()
 
-    def tearDown(self):
-        """teardown"""
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
+	@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db', "Do test this only if storage is db")
+	def test_pep8_FileStorage(self):
+		"""Tests pep8 style"""
+		style = pep8.StyleGuide(quiet=True)
+		p = style.check_files(['models/engine/db_storage.py'])
+		self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_pep8_FileStorage(self):
-        """Tests pep8 style"""
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/engine/file_storage.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
-
-    def test_all(self):
-        """tests if all works in File Storage"""
-        storage = FileStorage()
-        obj = storage.all()
-        self.assertIsNotNone(obj)
-        self.assertEqual(type(obj), dict)
-        self.assertIs(obj, storage._FileStorage__objects)
-
-    def test_new(self):
-        """test when new is created"""
-        storage = FileStorage()
-        obj = storage.all()
-        user = User()
-        user.id = 123455
-        user.name = "Kevin"
-        storage.new(user)
-        key = user.__class__.__name__ + "." + str(user.id)
-        self.assertIsNotNone(obj[key])
-
-    def test_reload_filestorage(self):
-        """
-        tests reload
-        """
-        self.storage.save()
-        Root = os.path.dirname(os.path.abspath("console.py"))
-        path = os.path.join(Root, "file.json")
-        with open(path, 'r') as f:
-            lines = f.readlines()
-        try:
-            os.remove(path)
-        except:
-            pass
-        self.storage.save()
-        with open(path, 'r') as f:
-            lines2 = f.readlines()
-        self.assertEqual(lines, lines2)
-        try:
-            os.remove(path)
-        except:
-            pass
-        with open(path, "w") as f:
-            f.write("{}")
-        with open(path, "r") as r:
-            for line in r:
-                self.assertEqual(line, "{}")
-        self.assertIs(self.storage.reload(), None)
+	@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db', "Do test this only if storage is db")
+	def test_attributes_DBStorage(self):
+		"""Test DBStorage attributes methods"""
+		self.assertTrue(hasattr(DBStorage, '_DBStorage__engine'))
+		self.assertTrue(hasattr(DBStorage, '_DBStorage__session'))
+		self.assertTrue(hasattr(DBStorage, 'new'))
+		self.assertTrue(hasattr(DBStorage, 'save'))
+		self.assertTrue(hasattr(DBStorage, 'all'))
+		self.assertTrue(hasattr(DBStorage, 'delete'))
+		self.assertTrue(hasattr(DBStorage, 'reload'))
 
 
 if __name__ == "__main__":
-    unittest.main()
+	unittest.main()
