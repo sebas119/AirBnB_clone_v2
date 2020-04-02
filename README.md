@@ -73,10 +73,13 @@ Where **User** can be any of the above classes, and it returns the id created fo
 ```
 giving the class you want to get, and it's "correspondiente" id string
 
-#### Destroy
-`destroy <class name> <object id>`
-Ex:
-`destroy Place my_place_id`
+### destroy
+  usage:
+```
+(hbtn) destroy User f51cc840-88d1-4213-9b29-18a0d14743bb
+```
+
+destroys an instanece by the given id string
 
 ### all
  usage:
