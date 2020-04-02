@@ -117,6 +117,47 @@ Ex:
 * Place
 * Review
 
+## Classes included
+### User
+
+* email: string 
+* password: string 
+* first_name: string 
+* last_name: string 
+
+## State
+
+* name: string
+
+## City
+
+* state_id: string
+* name: string
+## Amenity
+
+* name: string
+
+## Place
+
+* city_id: string
+* user_id: string
+* name: string
+* description: string
+* number_rooms: integer
+* number_bathrooms: integer
+* max_guest: integer
+* price_by_night: integer
+* latitude: float
+* longitude: float
+* amenity_ids: list of string
+
+## Review
+
+* place_id: string
+* user_id: string
+* text: string
+
+
 ### Authors :black_nib:
 * **Sebastián López Herrera** <[sebas119](https://github.com/sebas119)>
 * **Daniel Rodriguez** <[danrocus1994](https://github.com/danrocus1994)>
