@@ -65,10 +65,13 @@ To start, navigate to the project folder and enter `./console.py` in the shell.
 
 Where **User** can be any of the above classes, and it returns the id created for that single object
 
-#### Show
-`show <class name> <object id>`
-Ex:
-`show User my_id`
+### show
+ usage:
+```
+(hbtn) show User 98b9072f-ce8d-4856-b7a7-2004f91815d4
+[User] (98b9072f-ce8d-4856-b7a7-2004f91815d4) {'created_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505440), 'updated_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505466), 'id': '98b9072f-ce8d-4856-b7a7-2004f91815d4'}
+```
+giving the class you want to get, and it's "correspondiente" id string
 
 #### Destroy
 `destroy <class name> <object id>`
