@@ -19,6 +19,17 @@ $ ./console.py
 This tool have the following methods
 
 
+
+### Commands:
+* create - create an object
+* show - show an object (based on id)
+* destroy - destroy an object
+* all - show all objects, of one type or all types
+* quit/EOF - quit the console
+* help - see descriptions of commands
+
+To start, navigate to the project folder and enter `./console.py` in the shell.
+
 ### help
  usage:
  
@@ -37,24 +48,6 @@ you can get specific information of one method
 Usage: create <class_name>
 ```
 
-### Supported classes:
-* BaseModel
-* User
-* State
-* City
-* Amenity
-* Place
-* Review
-
-### Commands:
-* create - create an object
-* show - show an object (based on id)
-* destroy - destroy an object
-* all - show all objects, of one type or all types
-* quit/EOF - quit the console
-* help - see descriptions of commands
-
-To start, navigate to the project folder and enter `./console.py` in the shell.
 
 ### create:
  usage:
@@ -64,6 +57,15 @@ To start, navigate to the project folder and enter `./console.py` in the shell.
 ```
 
 Where **User** can be any of the above classes, and it returns the id created for that single object
+
+### update
+  usage:
+```
+(hbnb) update User 98b9072f-ce8d-4856-b7a7-2004f91815d4 name "Diego Garzon"
+(hbnb) show User 98b9072f-ce8d-4856-b7a7-2004f91815d4
+[User] (98b9072f-ce8d-4856-b7a7-2004f91815d4) {'updated_at': datetime.datetime(2020, 2, 19, 22, 29, 17, 431002), 'created_at': datetime.datetime(2020, 2, 19, 22, 22, 12, 505440), 'name': 'Diego Garzon', 'id': '98b9072f-ce8d-4856-b7a7-2004f91815d4'}
+
+```
 
 ### show
  usage:
