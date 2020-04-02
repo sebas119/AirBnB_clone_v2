@@ -56,10 +56,14 @@ Usage: create <class_name>
 
 To start, navigate to the project folder and enter `./console.py` in the shell.
 
-#### Create
-`create <class name>`
-Ex:
-`create BaseModel`
+### create:
+ usage:
+```
+(hbtn) create User
+98b9072f-ce8d-4856-b7a7-2004f91815d4
+```
+
+Where **User** can be any of the above classes, and it returns the id created for that single object
 
 #### Show
 `show <class name> <object id>`
