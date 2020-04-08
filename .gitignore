@@ -134,3 +134,6 @@ dmypy.json
 
 # Database
 file.json
+
+# Versions web_static
+versions
