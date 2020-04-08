@@ -3,6 +3,7 @@
 # servers, using the function deploy
 
 from fabric.api import env, put, run, local
+from fabric import decorators
 from datetime import datetime
 import os
 
@@ -11,13 +12,7 @@ env.key_filename = "~/.ssh/holberton"
 env.user = "ubuntu"
 
 
-def deploy():
-    archive_path = do_pack()
-    if archive_path is None:
-        return False
-    return do_deploy(archive_path)
-
-
+@decorators.runs_once
 def do_pack():
     """ Creates folder versions with tgz static_files"""
     now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
@@ -67,3 +62,11 @@ def do_deploy(archive_path):
     print("Created new symbolic link /data/web_static/current")
     print("New version deployed!")
     return True
+
+
+def deploy():
+    """Full deploy of web static files"""
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
