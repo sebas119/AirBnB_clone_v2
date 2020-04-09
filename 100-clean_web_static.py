@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 from fabric.api import env, put, run, local, lcd, cd
 from datetime import datetime
 import os
