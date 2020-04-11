@@ -20,10 +20,10 @@ def do_clean(number=0):
         number = 1
 
     files = sorted(os.listdir("versions"))
+    size = len(files)
     for i in range(number):
-        if len(files) >= i:
+        if size > i:
             files.pop()
-
     with lcd("versions"):
         for file_name in files:
             local("rm -f {}".format(file_name))
@@ -31,8 +31,9 @@ def do_clean(number=0):
     with cd("/data/web_static/releases"):
         all_files = run("ls -tr -1").split("\r\n")
         files = [name for name in all_files if "web_static_" in name]
+        size = len(files)
         for i in range(number):
-            if len(files) >= i:
+            if size > i:
                 files.pop()
         for file_name in files:
             run("rm -rf {}".format(file_name))
