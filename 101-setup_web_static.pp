@@ -1,6 +1,7 @@
 # Config Nginx with web_static
 
 $config = "/usr/bin/env printf %s 'server {
+    #Default
     listen 80;
     listen [::]:80 default_server;
     root   /var/www/html;
@@ -23,6 +24,9 @@ $config = "/usr/bin/env printf %s 'server {
     }
 }' > /etc/nginx/sites-available/default"
 
+$root = '/data/web_static/'
+$arr = ['/data/', $root, "${root}releases/", "${root}releases/test", "${root}shared"]
+
 exec { 'update_ppa':
   command  => 'sudo apt-get update',
   provider => shell,
@@ -35,29 +39,16 @@ package { 'Install nginx':
   require  => Exec['update_ppa'],
 }
 
-file { '/data/':
+file { $arr:
   ensure => 'directory',
   owner  => 'ubuntu',
   group  => 'ubuntu',
 }
 
-file { '/data/web_static/releases/test/':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-}
-
-file { '/data/web_static/shared/':
-  ensure => 'directory',
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-}
-
-file { '/data/web_static/releases/test/index.html':
-  ensure  => 'present',
+file { "${root}releases/test/index.html":
+  content => 'Test HTML file Airbnb_v2',
   owner   => 'ubuntu',
   group   => 'ubuntu',
-  content => 'Test HTML file Airbnb_v2'
 }
 
 file { '/data/web_static/current':
