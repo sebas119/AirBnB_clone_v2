@@ -46,7 +46,7 @@ class FileStorage:
             self.__objects[key] = obj
 
     def save(self):
-        """serialize the file path to JSON file path
+        """Serialize objects to JSON file
         """
         my_dict = {}
         for key, value in self.__objects.items():
@@ -55,7 +55,7 @@ class FileStorage:
             json.dump(my_dict, f)
 
     def reload(self):
-        """serialize the file path to JSON file path
+        """Deserialize the Json file to __objects, if it exists
         """
         try:
             with open(self.__file_path, 'r', encoding="UTF-8") as f:
@@ -72,3 +72,7 @@ class FileStorage:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
+
+    def close(self):
+        """Deserialize  the JSON file to objects"""
+        self.reload()
