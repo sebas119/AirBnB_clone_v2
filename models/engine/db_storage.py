@@ -43,6 +43,7 @@ class DBStorage:
         """
         data = {}
         if cls:
+            cls = eval(cls) if type(cls) == str else cls
             objs = self.__session.query(cls).all()
         else:
             objs = self.__session.query(State).all()

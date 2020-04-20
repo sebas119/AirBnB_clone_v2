@@ -29,7 +29,7 @@ class FileStorage:
             return self.__objects
         else:
             filter_cls = {}
-            cls_str = cls.__name__
+            cls_str = cls.__name__ if type(cls) != str else cls
             for key, val in self.__objects.items():
                 cls_obj = key.split('.')[0]
                 if cls_obj == cls_str:
