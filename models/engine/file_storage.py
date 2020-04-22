@@ -29,7 +29,7 @@ class FileStorage:
             return self.__objects
         else:
             filter_cls = {}
-            cls_str = cls.__name__
+            cls_str = cls.__name__ if type(cls) != str else cls
             for key, val in self.__objects.items():
                 cls_obj = key.split('.')[0]
                 if cls_obj == cls_str:
@@ -46,7 +46,7 @@ class FileStorage:
             self.__objects[key] = obj
 
     def save(self):
-        """serialize the file path to JSON file path
+        """Serialize objects to JSON file
         """
         my_dict = {}
         for key, value in self.__objects.items():
@@ -55,7 +55,7 @@ class FileStorage:
             json.dump(my_dict, f)
 
     def reload(self):
-        """serialize the file path to JSON file path
+        """Deserialize the Json file to __objects, if it exists
         """
         try:
             with open(self.__file_path, 'r', encoding="UTF-8") as f:
@@ -72,3 +72,7 @@ class FileStorage:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
+
+    def close(self):
+        """Deserialize  the JSON file to objects"""
+        self.reload()
